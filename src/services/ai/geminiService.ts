@@ -11,7 +11,9 @@ const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY || "");
 export async function getAnimeRecommendations(
   userPreferences: string
 ): Promise<AIRecommendation[]> {
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  const model = genAI.getGenerativeModel({
+    model: import.meta.env.VITE_GEMINI_MODEL || "gemini-2.5-flash"
+  });
 
   try {
     // Use generateContent with JSON response configuration
@@ -58,7 +60,9 @@ export const generateChatResponse = async (
   messages: ChatMessage[]
 ): Promise<string> => {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({
+      model: import.meta.env.VITE_GEMINI_MODEL || "gemini-2.5-flash"
+    });
 
     const chat = model.startChat({
       history: messages.map((msg) => ({
